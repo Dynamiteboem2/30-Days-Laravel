@@ -1,28 +1,62 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('Home');
+Route::Get('/', function () {
+    return view(
+        'Home',
+    );
 });
 
-Route::get('/about', function () {
-    return view ('about');
+Route::Get('/jobs', function () {
+    return view('jobs', [
+        'jobs' => [
+            [
+                'id' => 1,
+                'title' => 'Director',
+                'salary' => '$50,00',
+            ],
+
+            [
+                'id' => 2,
+                'title' => 'Programmer',
+                'salary' => '100,000'
+            ],
+            [
+                'id' => 3,
+                'title' => 'Teacher',
+                'salary' => '40,000'
+            ]
+        ]
+    ]);
 });
 
-Route::get('/contact', function () {
-    return view ('contact');
+Route::Get('/jobs/{id}', function ($id) {
+    $jobs = [
+        [
+            'id' => 1,
+            'title' => 'Director',
+            'salary' => '$50,00',
+        ],
+
+        [
+            'id' => 2,
+            'title' => 'Programmer',
+            'salary' => '100,000'
+        ],
+        [
+            'id' => 3,
+            'title' => 'Teacher',
+            'salary' => '40,000'
+        ]
+    ];
+
+    $job = Arr::First($jobs, fn($job) => $job['id'] == $id);
+
+
+    return view('job', ['job' => $job]);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::Get('/contact', function () {
+    return view('contact');
 });
-
-require __DIR__.'/auth.php';
