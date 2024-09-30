@@ -1,25 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\models\job;
-
-
+use App\Models\Job;
 
 Route::Get('/', function () {
-    return view(
-        'Home',
-    );
+    return view('Home');
 });
 
 Route::Get('/jobs', function ()  {
     return view('jobs', [
-        'jobs' =>  job ::all()
-    ]);  
+        'jobs' => Job::all()
+    ]);
 });
 
 Route::Get('/jobs/{id}', function ($id)   {
-              $job = job::find($id);
-
+    $job = Job::find($id); // This now correctly references the Job model
 
     return view('job', ['job' => $job]);
 });
