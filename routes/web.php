@@ -4,8 +4,16 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Job;
 
 Route::Get('/', function () {
-    return view('Home');
+
+   $jobs =  job::all();
+
+   dd($jobs);
+
+  //  return view('Home');
 });
+
+
+
 
 Route::Get('/jobs', function ()  {
     return view('jobs', [
