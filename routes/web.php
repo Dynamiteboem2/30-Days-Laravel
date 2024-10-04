@@ -16,7 +16,7 @@ Route::Get('/', function () {
 
 
 Route::Get('/jobs', function ()  {
-    return view('jobs', [
+    return view('jobs', [ 
         'jobs' => Job::all()
     ]);
 });
