@@ -7,12 +7,10 @@ Route::Get('/', function () {
 
    $jobs =  job::all();
 
-   dd($jobs);
 
-  //  return view('Home');
+
+    return view('Home');
 });
-
-
 
 
 Route::Get('/jobs', function ()  {
