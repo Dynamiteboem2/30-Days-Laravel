@@ -14,10 +14,17 @@ class Job extends Model
 
     // Vulbare velden
     protected $fillable = ['title', 'salary', 'employer_id'];
-
+ 
     // Definieer de relatie naar het Employer model
     public function employer()
     {
         return $this->belongsTo(Employer::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'job_tags', 'job_listing_id', 'tag_id');
+
+
     }
 }
