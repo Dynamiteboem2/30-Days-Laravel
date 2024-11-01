@@ -14,18 +14,36 @@ Route::Get('/', function () {
 
 
 Route::Get('/jobs', function ()  {
-    $jobs = job:: with ('employer')->cursorPaginate(3);
+    $jobs = job:: with ('employer')->latest()->simplePaginate(3);
 
-    return view('jobs', [ 
+    return view('jobs.index', [ 
         'jobs' => $jobs
     ]);
 });
 
+Route::Get('/jobs/create', function () {
+    return view('jobs.create');
+});
+
+
 Route::Get('/jobs/{id}', function ($id)   {
     $job = Job::find($id); // This now correctly references the Job model
 
-    return view('job', ['job' => $job]);
+    return view('jobs.show', ['job' => $job]);
 });
+
+  Route::post('/jobs' , function () {
+  //validation
+
+  job::create([
+    'title' => request ('title'),
+    'salary' => request ('salary'),
+    'employer_id' => 1
+  ]);
+
+    return redirect('/jobs');
+});
+  
 
 Route::Get('/contact', function () {
     return view('contact');

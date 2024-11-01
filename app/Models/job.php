@@ -13,7 +13,7 @@ class Job extends Model
     protected $table = 'job_listings';
 
     // Vulbare velden
-    protected $fillable = ['title', 'salary', 'employer_id'];
+    protected $guarded = [''];
  
     // Definieer de relatie naar het Employer model
     public function employer()
