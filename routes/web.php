@@ -5,8 +5,16 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\TranslateJob; // Import the TranslateJob class
+use App\Models\Job; // Missing semicolon
 
+Route::get('test', function(){
+    $job = Job::first(); // Correct capitalization
+    
+    TranslateJob::dispatch($job);
 
+    return 'Done';
+});
 
 Route::view('/', 'home');
 Route::view('/contact', 'contact');
