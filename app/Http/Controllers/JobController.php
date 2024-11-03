@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail; // Correct import for Mail facade
+use App\Mail\JobPosted; // Import the JobPosted mailable
 
 class JobController extends Controller
 {
@@ -36,11 +38,15 @@ class JobController extends Controller
         ]);
 
         // Create job
-        Job::create([
-            'title' => $request->input('title'),
-            'salary' => $request->input('salary'),
+     $job =  Job::create([
+           'title' => $request->input('title'),
+           'salary' => $request->input('salary'),
             'employer_id' => 1 // Adjust this as needed
         ]);
+       
+        Mail::to($job->employer->user)->send(
+            new JobPosted($job)
+        );
 
         // Redirect to the jobs index page
         return redirect('/jobs');
